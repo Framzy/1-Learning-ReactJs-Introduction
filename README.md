@@ -188,3 +188,60 @@ function App() {
   ```
 
 ## Nested Component
+
+- JSX supports the creation of Nested Components.
+- This allows us to create Components that can dynamically add other Components inside them.
+- In order for a component to have other Components inside it, we can use the children attribute in Props.
+- For example, let's say we are going to create a Component called Container, and inside it we can contain other Components.
+
+```js
+// Container.jsx
+export default function Container({ children }) {
+  return (
+    <div>
+      <h1>Welcome to React</h1>
+      {children}
+      <footer>
+        <p>2025</p>
+      </footer>
+    </div>
+  );
+}
+
+// main.jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import HelloWorld from "./HelloWorld.jsx";
+import Container from "./Container.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <Container>
+      <HelloWorld />
+    </Container>
+  </StrictMode>
+);
+```
+
+## Style in jsx
+
+- So far, we have only discussed HTML and JavaScript in JSX, but what about CSS?
+- CSS itself is not part of JSX. If we want to create CSS styles, we need to create them in a CSS file or directly in the style attribute using double curly brackets, as demonstrated earlier.
+- But now we will try it in a CSS file.
+- Using Style in JSX, we don't use the class attribute, but rather className.
+  [Documentation Style in JSX](https://react.dev/reference/react-dom/components/common#applying-css-styles)
+
+```css
+.paragrafh {
+  color: #e7e7e7ff;
+  background-color: #67a6a7ff;
+}
+```
+
+```js
+import "./HelloWorld.css";
+
+function Paragrafh(p) {
+  return <p className="paragrafh">{p}</p>;
+}
+```

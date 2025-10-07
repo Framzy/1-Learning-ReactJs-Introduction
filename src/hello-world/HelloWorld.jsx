@@ -1,3 +1,5 @@
+import "./HelloWorld.css";
+
 function HelloWorld() {
   const props = {
     text: "Hello, World!",
@@ -22,11 +24,7 @@ function HeaderHelloWorld({ text = "Ups, Forget to add text" }) {
 }
 
 function Paragrafh(p) {
-  const style = {
-    color: "#e7e7e7ff",
-    backgroundColor: "#67a6a7ff",
-  };
-  return <p style={style}>{p}</p>;
+  return <p className="paragrafh">{p}</p>;
 }
 
 function FirstParagraphHelloWorld({ p = "Ups, Forget to add text" }) {
