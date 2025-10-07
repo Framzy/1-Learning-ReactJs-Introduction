@@ -115,3 +115,53 @@ function Profile() {
 - All element tags must be closed.
 - Attributes use camelCase. Attributes in JSX elements will be converted to JavaScript variables, so attribute names must follow the naming conventions for JavaScript variables, which means they cannot use hyphens (-).
 - Due to this limitation, most attributes in JSX elements will use camelCase, for example className (not class-name).
+
+### JSX Converter
+
+- If we want to convert HTML to JSX, we can use the following tool:
+  https://transform.tools/html-to-jsx
+
+- This tool will help us convert HTML code to JSX code automatically.
+
+### JavaScript In JSX
+
+- We can use JavaScript expressions in JSX by using curly braces `{}`.
+- For example, we can display a variable or the result of a function call directly in the JSX code.
+
+```js
+const name = "Andi";
+function getName() {
+  return "Budi";
+}
+
+function App() {
+  return (
+    <div>
+      <h1>Hello {name}</h1>
+      <p>Your name is {getName()}</p>
+    </div>
+  );
+}
+```
+
+- but it only can use for 2 location, for text and attributes value
+- sometimes we can see double {} like {{}} , this is because the first {} is for JavaScript expression and the second {} is for object literal. For example, when we want to pass an object as a prop to a component.
+
+```js
+function App() {
+  return (
+    // <div style={{ color: "red", backgroundColor: "black" }}>  so its like {{}}
+      <h1>Hello World</h1>
+    </div>
+  );
+}
+```
+
+## Props (Properties)
+
+- React Components use Props to communicate.
+  Parent Components can send information to Child Components using Props.
+  Props are similar to attributes in HTML Elements, but we can send JavaScript values such as objects, arrays, functions, or others
+
+- To add Props to a Component, we only need to add an object parameter to the function in the Component
+  The Props parameter is a JavaScript Object, so we can access the attribute details sent from the parent via Props
