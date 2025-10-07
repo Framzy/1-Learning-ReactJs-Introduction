@@ -15,7 +15,7 @@ function HelloWorld() {
 
 function HeaderHelloWorld({ text = "Ups, Forget to add text" }) {
   return (
-    <h1 style={{ color: "#b9b7b7ff", backgroundColor: "black" }}>
+    <h1 style={{ color: "#e3e3e3ff", backgroundColor: "#47a898ff" }}>
       {text.toUpperCase()}
     </h1>
   );
@@ -23,8 +23,8 @@ function HeaderHelloWorld({ text = "Ups, Forget to add text" }) {
 
 function Paragrafh(p) {
   const style = {
-    color: "#bfbfbfff",
-    backgroundColor: "black",
+    color: "#e7e7e7ff",
+    backgroundColor: "#67a6a7ff",
   };
   return <p style={style}>{p}</p>;
 }

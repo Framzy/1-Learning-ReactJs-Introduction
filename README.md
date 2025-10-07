@@ -70,6 +70,21 @@ createRoot(document.getElementById("root")).render(
 - Although that is good practice, it does not mean it is mandatory.
 - A Component is actually just a function that returns a React Element. Therefore, if we want to create a Component, we only need to create a function that returns a React Element.
 
+```js
+function HelloWorld() {
+  return <h1>Hello, World!</h1>;
+}
+
+function App() {
+  return (
+    <div>
+      <HelloWorld />
+    </div>
+  );
+}
+export default App;
+```
+
 ## JSX
 
 - Websites are built using HTML, CSS, and JavaScript. Typically, we store content in HTML, design in CSS, and application logic in JavaScript. And usually, we store them in separate files.
@@ -165,3 +180,11 @@ function App() {
 
 - To add Props to a Component, we only need to add an object parameter to the function in the Component
   The Props parameter is a JavaScript Object, so we can access the attribute details sent from the parent via Props
+
+  ```js
+  function HelloWorld(props) {
+    return <h1>Hello, {props.name}!</h1>;
+  }
+  ```
+
+## Nested Component
