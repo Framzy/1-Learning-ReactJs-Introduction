@@ -1,10 +1,18 @@
 function HelloWorld() {
   return (
     <div>
-      <h1>Hello, World!</h1>
-      <p>Welcome to React</p>
+      <HeaderHelloWorld />
+      <ParagraphHelloWorld />
     </div>
   );
+}
+
+function HeaderHelloWorld() {
+  return <h1>Hello, World!</h1>;
+}
+
+function ParagraphHelloWorld() {
+  return <p>Welcome to React</p>;
 }
 
 export default HelloWorld;

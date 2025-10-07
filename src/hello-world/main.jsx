@@ -5,7 +5,5 @@ import HelloWorld from "./HelloWorld.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <HelloWorld />
-    <HelloWorld />
-    <HelloWorld />
   </StrictMode>
 );
