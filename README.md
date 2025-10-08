@@ -59,10 +59,10 @@ createRoot(document.getElementById("root")).render(
 ```
 
 - We can create React Root using the createRoot(element) method.
-  https://react.dev/reference/react-dom/client/createRoot
+  [](https://react.dev/reference/react-dom/client/createRoot)
 - Next, to display a Component in React Root, we can use the render method. (component)
 - To help troubleshoot issues during development, React provides the StrictMode component. We can use StrictMode to display components in the Root
-  https://react.dev/reference/react/StrictMode
+  [](https://react.dev/reference/react/StrictMode)
 
 #### Multiple Component
 
