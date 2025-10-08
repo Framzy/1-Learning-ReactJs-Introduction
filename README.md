@@ -20,7 +20,7 @@ npm create vite@latest application-name -- --template react
 npm create vite@latest application-name -- --template react-ts
 ```
 
-[Documentation for vite with jsx](https://vite.dev/guide/#scaffolding-your-first-vite-project)
+[](https://vite.dev/guide#scaffolding-your-first-vite-project)
 
 ## Start Project
 
@@ -40,7 +40,7 @@ npm run dev
 
 - React Components support all HTML and SVG elements.
 - So we don't need to worry when creating Components, because all elements are definitely supported.
-  https://react.dev/reference/react-dom/components
+  [https://react.dev/reference/react-dom/components](https://react.dev/reference/react-dom/components)
 
 #### Displaying Component
 
@@ -59,10 +59,10 @@ createRoot(document.getElementById("root")).render(
 ```
 
 - We can create React Root using the createRoot(element) method.
-  [](https://react.dev/reference/react-dom/client/createRoot)
+  [https://react.dev/reference/react-dom/client/createRoot](https://react.dev/reference/react-dom/client/createRoot)
 - Next, to display a Component in React Root, we can use the render method. (component)
 - To help troubleshoot issues during development, React provides the StrictMode component. We can use StrictMode to display components in the Root
-  [](https://react.dev/reference/react/StrictMode)
+  [https://react.dev/reference/react/StrictMode](https://react.dev/reference/react/StrictMode)
 
 #### Multiple Component
 
@@ -134,7 +134,7 @@ function Profile() {
 ### JSX Converter
 
 - If we want to convert HTML to JSX, we can use the following tool:
-  [JSX Converter](https://transform.tools/html-to-jsx)
+  [https://transform.tools/html-to-jsx](https://transform.tools/html-to-jsx)
 
 - This tool will help us convert HTML code to JSX code automatically.
 
@@ -229,7 +229,7 @@ createRoot(document.getElementById("root")).render(
 - CSS itself is not part of JSX. If we want to create CSS styles, we need to create them in a CSS file or directly in the style attribute using double curly brackets, as demonstrated earlier.
 - But now we will try it in a CSS file.
 - Using Style in JSX, we don't use the class attribute, but rather className.
-  [Documentation Style in JSX](https://react.dev/reference/react-dom/components/common#applying-css-styles)
+  [https://react.dev/reference/react-dom/components/common#applying-css-styles](https://react.dev/reference/react-dom/components/common#applying-css-styles)
 
 ```css
 .paragrafh {
