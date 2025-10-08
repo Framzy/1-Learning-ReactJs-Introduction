@@ -134,7 +134,7 @@ function Profile() {
 ### JSX Converter
 
 - If we want to convert HTML to JSX, we can use the following tool:
-  https://transform.tools/html-to-jsx
+  [JSX Converter](https://transform.tools/html-to-jsx)
 
 - This tool will help us convert HTML code to JSX code automatically.
 
