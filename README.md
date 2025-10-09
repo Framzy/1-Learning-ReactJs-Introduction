@@ -558,4 +558,52 @@ It can be in the form of an Anonymous Function, Arrow Function, or by creating a
 
 The name of a Function for a Handler usually starts with the word "handle" and is followed by the type of Event Handler, for example, handleClick(), handleMouseEnter(), and so on.
 
-Now let's try to create a Component for an Alert Button.
+#### Reading Props in Event Handlers
+
+One advantage of creating an Event Handler Function inside a Component is that we can read the Props used by that Component.
+
+```js
+// inside component
+export default function AlertButton({ text, message }) {
+  function handleClick() {
+    alert(message);
+  }
+  return <button onClick={handleClick}>{text}</button>;
+}
+
+// outside component
+  export default function AlertButton({ text, message }) {
+  return (
+    <button onClick={handleClick}>{text}</button>
+    );
+}
+
+  function handleClick() {
+    alert(message); // cannot use props message
+  }
+
+
+```
+
+### Event Handlers as Props
+
+As discussed in the material on Props, Props are actually JavaScript Objects.
+
+We know that JavaScript Objects can have attributes with the type Function. Therefore, we can also create Event Handlers in Props.
+
+When creating an attribute in Props that contains an Event Handler, the attribute name will usually start with “on”, for example “onSmash”, “onHit”, and so on.
+
+```js
+// using event handler as props
+export default function MyButton({ text, onSmash }) {
+  return <button onClick={onSmash}>{text}</button>;
+}
+
+
+      <MyButton text="Smash Me" onSmash={() => alert("Success Smash")} />
+      <MyButton
+        text="Smash Me Again"
+        onSmash={() => alert("Success Smash Again")}
+      />
+
+```
