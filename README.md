@@ -245,3 +245,219 @@ function Paragrafh(p) {
   return <p className="paragrafh">{p}</p>;
 }
 ```
+
+## Conditional
+
+### IF Else
+
+- When we create web pages, we often display different views under certain conditions. This can also be done in JSX.
+- We can add conditions using JavaScript and return different components based on the desired conditions.
+- For example, we will create a TodoList page, and if the Todo is difficult to complete, we will cross out the text element.
+
+```js
+export default function Todo({ text, isCompleted }) {
+  if (isCompleted) {
+    return (
+      <div>
+        <h1>
+          <del>{text}</del>
+        </h1>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>{text}</h1>
+      </div>
+    );
+  }
+}
+```
+
+### Null Component
+
+- In certain cases, there may be situations where we want to return a Component, or do not want to return any Component
+- We can return null to indicate that we are not returning any Component
+
+```js
+export default function Todo({ text, isCompleted, isDeleted }) {
+  if (isDeleted) {
+    return null;
+  } else if (isCompleted) {
+    return (
+      <div>
+        <h1>
+          <del>{text}</del>
+        </h1>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>{text}</h1>
+      </div>
+    );
+  }
+}
+```
+
+### Tenary & Logical AND
+
+Sometimes in simpler cases, we can use the JavaScript Ternary Operator in JSX. In some simpler cases, JSX often uses Logical AND in JavaScript.
+
+For example, if the condition is met, it will display; if not, it will not display.
+
+```js
+
+// Tenary
+export default function Todo({ text, isCompleted, isDeleted = false }) {
+  if (isDeleted) {
+    return null;
+  } else {
+    return <li>{isCompleted ? <del>{text}</del> : text}</li>;
+  }
+}
+
+// Logical AND
+export default function Todo({ text, isCompleted, isDeleted = false }) {
+  if (isDeleted) {
+    return null;
+  } else {
+    return (
+      <li>
+        {text} {isCompleted && "✅"}
+      </li>
+    );
+  }
+}
+```
+
+## Collection Component
+
+We will often display the same Component multiple times according to the data collection. JSX itself does not have a looping feature.
+
+To display multiple Components, just like Conditional, we will use JavaScript.
+
+We can use JavaScript Array to convert Array data into Components, for example, using the map() method on the Array.
+
+For example, now we will try to convert the TodoList data that we previously created into an array.
+
+```js
+import Todo from "./Todo";
+
+export default function TodoList() {
+  const data = [
+    {
+      text: "Learn HTML",
+      isCompleted: true,
+    },
+    {
+      text: "Learn CSS",
+      isCompleted: true,
+    },
+    {
+      text: "Learn JavaScript",
+      isCompleted: true,
+    },
+    {
+      text: "Learn React",
+      isCompleted: false,
+    },
+  ];
+
+  // with {} and return
+  const todos = data.map((todo) => {
+    return <Todo {...todo} />;
+  });
+
+  // or without {} , return and ;
+  const todos = data.map((todo) => <Todo {...todo} />);
+
+  return <ul>{todos}</ul>;
+}
+```
+
+### Component Key
+
+If we look at the Text Editor, we may see a warning message: “Missing key prop for element in iterator.”
+
+When creating a Collection Component, each Component requires an id (unique, string or number) using the key attribute.
+
+Why do we need a Component Key? This is so that React can recognize the Component when it changes, such as when its position is changed, deleted, or added to the Collection.
+
+Typically, the Component Key is taken from the data, making it more consistent.
+
+```js
+import Todo from "./Todo";
+
+export default function TodoList() {
+  const data = [
+    {
+      id: 1,
+      text: "Learn HTML",
+      isCompleted: true,
+    },
+    {
+      id: 2,
+      text: "Learn CSS",
+      isCompleted: true,
+    },
+    {
+      id: 3,
+      text: "Learn JavaScript",
+      isCompleted: true,
+    },
+    {
+      id: 4,
+      text: "Learn React",
+      isCompleted: false,
+    },
+  ];
+
+  return (
+    <ul>
+      {data.map((todo) => (
+        <Todo key={todo.id} {...todo} />
+      ))}
+    </ul>
+  );
+}
+```
+
+## Pure Component
+
+React assumes that every Component we create is a Pure Function. This means that the React Component we create must always return the same JSX with the same input.
+
+Although we can actually create a React Component that is not Pure, it is highly discouraged, because each call to the Component with the same input can produce inconsistent values.
+
+We will try to create an example of a React Component that is not Pure.
+
+```js
+
+```
+
+### Pure Function
+
+In programming, we are familiar with the term Pure Function.
+
+[https://en.wikipedia.org/wiki/Pure_function](https://en.wikipedia.org/wiki/Pure_function)
+
+A function is called a Pure Function if it meets the following two criteria:
+
+1. The function will return the same value for the same parameter values.
+
+2. The function has no side effects; there are no changes to non-local variables (variables outside the function).
+
+```js
+// Pure function
+export function double(num) {
+  return num * 2; // if num 2 = 4
+}
+
+// Not Pure
+let count = 0;
+export function increment() {
+  count++;
+  return count; // it will be change like 1,2,3,dst
+}
+```
