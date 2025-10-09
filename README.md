@@ -430,9 +430,73 @@ React assumes that every Component we create is a Pure Function. This means that
 
 Although we can actually create a React Component that is not Pure, it is highly discouraged, because each call to the Component with the same input can produce inconsistent values.
 
-We will try to create an example of a React Component that is not Pure.
+- We will try to create an example of a React Component that is not Pure.
 
 ```js
+//  There is sidde effect and make it double counter
+
+let counter = 0;
+
+export default function Row({ text }) {
+  counter++;
+  return (
+    <tr>
+      <td>{counter}</td>
+      <td>{text}</td>
+    </tr>
+  );
+}
+
+import Row from "./Row.jsx";
+
+export default function Table() {
+  return (
+    <table border="1">
+      <tbody>
+        <Row text="Satu" />
+        <Row text="Dua" />
+        <Row text="Tiga" />
+      </tbody>
+    </table>
+  );
+}
+
+```
+
+- Creating a Pure Component
+
+  So how do Component Row and Table become Pure Components?
+  We have to remove the side effects from the Component. For example, we can move the counter variable to a local variable in Table, and use Props as the counter.
+
+```js
+// So we can move the counter variable to a local variable in Table, and use Props id as the counter. And we can create a Pure Component Row and Table as follows:
+export default function Row({ id, text }) {
+  return (
+    <tr>
+      <td>{id}</td>
+      <td>{text}</td>
+    </tr>
+  );
+}
+
+import Row from "./Row.jsx";
+
+export default function Table() {
+  const data = [
+    { id: 1, text: "Satu" },
+    { id: 2, text: "Dua" },
+    { id: 3, text: "Tiga" },
+  ];
+  return (
+    <table border="1">
+      <tbody>
+        {data.map((row) => (
+          <Row key={row.id} {...row} />
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 ```
 
@@ -461,3 +525,37 @@ export function increment() {
   return count; // it will be change like 1,2,3,dst
 }
 ```
+
+## Side Effects
+
+Where can side effects be performed?
+
+React provides a special place if we want to create a Component that can produce side effects.
+
+- Side effects from Components are usually placed in Event Handlers, which are actions that occur when we interact with Components.
+
+- Or, when a Component depends on an external system (e.g., API), React provides the useEffect() function.
+
+  [https://react.dev/reference/react/useEffect](https://react.dev/reference/react/useEffect)
+
+We will discuss all of this in their respective materials.
+
+## Event Handler
+
+As we already know, in HTML Elements, we can add Event Handlers.
+
+Similarly, in React Components, we can add Event Handlers to Elements in React Components.
+
+There are many types of Event Handlers that we can add. We can see them on the React Component Reference page.
+
+[https://react.dev/reference/react-dom/components/common#event-handlers](https://react.dev/reference/react-dom/components/common#event-handlers)
+
+### Adding Event Handlers
+
+To add an Event Handler, we usually add a Function as the handler.
+
+It can be in the form of an Anonymous Function, Arrow Function, or by creating a Function beforehand within the Component's scope.
+
+The name of a Function for a Handler usually starts with the word "handle" and is followed by the type of Event Handler, for example, handleClick(), handleMouseEnter(), and so on.
+
+Now let's try to create a Component for an Alert Button.
