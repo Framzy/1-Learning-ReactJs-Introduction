@@ -670,3 +670,27 @@ export default function SearchForm() {
   );
 }
 ```
+
+## Side Effect
+
+Can a Component have a Side Effect?
+
+Of course it can, but usually, Side Effects occur due to user interaction through an Event Handler.
+
+For example, we will create a "Say Hello" Form, where when a Button is clicked, we want to display "Hello + name" in the Text.
+
+## DOM Manipulation
+
+In the previous code, we used DOM Manipulation to change a Component in React.
+
+This is actually not highly recommended, especially if, for example, the data that triggers changes to an Element in the Component comes from various Event Handlers.
+
+Therefore, the recommended approach is to use State, which we will discuss in the next material.
+
+## Hooks
+
+Hooks are a feature in React that can be used in Components.
+
+There are many features that we can use in React Hooks, and we will discuss them gradually.
+
+[https://react.dev/reference/react/hooks](https://react.dev/reference/react/hooks)
