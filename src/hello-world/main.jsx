@@ -7,6 +7,7 @@ import Table from "../table/Table.jsx";
 import AlertButton from "../button/AlertButton.jsx";
 import MyButton from "../button/MyButton.jsx";
 import Toolbar from "../button/Toolbar.jsx";
+import SearchForm from "../form/searchForm.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -26,6 +27,7 @@ createRoot(document.getElementById("root")).render(
           alert("Success Click");
         }}
       />
+      <SearchForm />
     </Container>
   </StrictMode>
 );

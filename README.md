@@ -644,3 +644,29 @@ When the Button is clicked, the onClick on the Button will be triggered, and the
 Sometimes we may not want this to happen, so we can stop the Event Propagation process using the stopPropagation() method.
 
 [https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+
+### Prevent Default
+
+Besides stopping Event Propagation, a common thing we do when creating an Event Handler is to stop the default action using preventDefault().
+
+[https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)
+
+For example, if we create a Form, when an onClick Event is triggered, we want to stop the default Form Submit action.
+
+```js
+export default function SearchForm() {
+  return (
+    <form>
+      <input type="text" placeholder="Search..." />
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          alert("Search");
+        }}
+      >
+        Search
+      </button>
+    </form>
+  );
+}
+```
