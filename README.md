@@ -607,3 +607,40 @@ export default function MyButton({ text, onSmash }) {
       />
 
 ```
+
+### Event Object
+
+When we create an Event Handler Function, we can add an Event Object as a parameter in that Function. The React Event Object is compatible with the standard DOM Event Object.
+
+[https://react.dev/reference/react-dom/componentscommon#react-event-object](https://react.dev/reference/react-dom/components/common#react-event-object)
+[https://developer.mozilla.org/en-US/docs/Web/API/Event](https://developer.mozilla.org/en-US/docs/Web/API/Event)
+
+### Event Propagation
+
+Events in a React Component will always be propagated to the Components above it (Event Propagation).
+
+For example, if we have a Div with an onClick Event, and inside it we have a Button with an onClick Event.
+
+```js
+export default function Toolbar({ onClick }) {
+  return (
+    <div onClick={onClick} style={{ display: "flex", backgroundColor: "red" }}>
+      <button onClick={onClick}>First</button>
+      <button onClick={onClick}>Second</button>
+    </div>
+  );
+}
+
+<Toolbar
+  onClick={(e) => {
+    e.stopPropagation();
+    alert("Success Click");
+  }}
+/>;
+```
+
+When the Button is clicked, the onClick on the Button will be triggered, and then the onClick on the Div will also be triggered.
+
+Sometimes we may not want this to happen, so we can stop the Event Propagation process using the stopPropagation() method.
+
+[https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
