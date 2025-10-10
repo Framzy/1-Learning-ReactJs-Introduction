@@ -694,3 +694,101 @@ Hooks are a feature in React that can be used in Components.
 There are many features that we can use in React Hooks, and we will discuss them gradually.
 
 [https://react.dev/reference/react/hooks](https://react.dev/reference/react/hooks)
+
+## State
+
+Components sometimes need to change due to user interaction. For example, a click input can increase a counter. A next button can change the currently displayed banner image, and so on. A Component must be able to remember its current values, such as the current counter, the current image, and so on.
+
+In React, a Component's specific memory is called State.
+
+### State Using Regular Local Variables
+
+Can regular local variables in a Component be used for State? Unfortunately, this cannot be done. When React renders a Component for the second time and so on, all the Component's code will be re-executed, therefore the local variable will return to its initial value.
+
+Changes to a local variable also will not trigger a re-render of the Component.
+
+```js
+export default function Counter() {
+  let counter = 0;
+
+  function handleClick() {
+    counter++;
+    console.log(counter);
+  }
+
+  return (
+    <div>
+      <div>
+        <button onClick={handleClick}>Increment</button>
+      </div>
+      <h1>Counter : {counter}</h1>
+    </div>
+  );
+}
+```
+
+## useState
+
+To create State, we can use the useState(initial) function.
+
+[https://react.dev/reference/react/useState](https://react.dev/reference/react/useState)
+
+The useState function will return an array with two values: the first is the State, and the second is a function to change the value of that State.
+
+A Component that uses that State will automatically... (the sentence appears to be cut off in the image).
+
+```js
+import { useState } from "react";
+export default function Counter() {
+  let [counter, setCounter] = useState(0);
+
+  console.log("Render Counter");
+
+  function handleClick() {
+    console.log(counter);
+    setCounter(counter + 1);
+  }
+
+  return (
+    <div>
+      <div>
+        <button onClick={handleClick}>Increment</button>
+      </div>
+      <h1>Counter : {counter}</h1>
+    </div>
+  );
+}
+```
+
+### Isolated and Private State
+
+State is data that is isolated and locally private to the Component that uses it.
+
+This means that if we re-render the same Component multiple times, the State of each Component will be separate from one another.
+
+```js
+      <Counter />
+      <Counter />
+```
+
+## Render
+
+Before a Component we create is displayed on the screen, the Component must be rendered by React.
+
+Therefore, we need to know how this React process works when displaying the Components we create.
+
+There are 3 stages in the process of displaying a Component in React.
+
+1. First, triggering the render process.
+
+2. Second, rendering the Component.
+
+3. Third, placing the rendered result of the Component into the DOM (Document Object Model).
+
+![alt text](image.png)
+
+- Triggering a Render
+
+  A render is usually triggered for two reasons. First is the initial rendering of the Component, which we do using the render() method.
+
+  Second is when there is a trigger from a State change. Every time a State change occurs, React will automatically queue a re-render process.
