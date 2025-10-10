@@ -789,6 +789,83 @@ There are 3 stages in the process of displaying a Component in React.
 
 - Triggering a Render
 
-  A render is usually triggered for two reasons. First is the initial rendering of the Component, which we do using the render() method.
+  > A render is usually triggered for two reasons. First is the initial rendering of the Component, which we do using the render() method.
+  > Second is when there is a trigger from a State change. Every time a State change occurs, React will automatically queue a re-render process.
 
-  Second is when there is a trigger from a State change. Every time a State change occurs, React will automatically queue a re-render process.
+- Rendering a Component
+
+  > After the render is triggered, React will call the Component we created to find out what should be displayed on the screen.
+  > Rendering is the process of React calling the Component we created.
+  > In the initial rendering process, React will call the Root Component (the top-most one).
+  > During a re-render, React will only re-call the Component whose state has changed.
+  > After the rendering process is complete, React will perform the Commit process.
+
+- Committing Changes
+
+  > After the rendering process is complete, React will perform the commit changes process (saving changes) to the DOM.
+  > For the initial render, because it's the first time, meaning the elements in the DOM do not yet exist, React will use appendChild() to add elements to the DOM.
+  > As for the re-render process, React will try to make minimal changes to match the current DOM with the rendering result.
+  > React will only change an element in the DOM if that element is indeed different from the rendering result.
+
+## Snapshot
+
+At a glance, a State variable might look like a regular JavaScript variable.
+
+But actually, State is like a snapshot (the condition at that moment). Changing the value of a State variable will not change the Snapshot, but rather will trigger a re-render to create a new Snapshot.
+
+We might think that the web display changes directly in response to an event performed by the user, like a button click.
+
+However, it's not actually like that; as we know from the previous material, when a State change occurs, it will trigger a re-render, thus creating a new Snapshot that is displayed on the screen.
+
+### Mistakes in Updating State
+
+Understanding Snapshots will give us an idea of how to view data in State.
+
+The following are examples of common mistakes made when updating State.
+
+We think that if we update State, the data will change at that very moment, whereas updating State actually only triggers a re-render with the new state value.
+
+```js
+// Counter: 0
+function handleClick() {
+  console.log(counter);
+  setCounter(counter + 1); // setCounter(0 + 1);
+  setCounter(counter + 1); // setCounter(0 + 1);
+  setCounter(counter + 1); // setCounter(0 + 1);
+}
+// Counter: 1
+function handleClick() {
+  console.log(counter);
+  setCounter(counter + 1); // setCounter(1 + 1);
+  setCounter(counter + 1); // setCounter(1 + 1);
+  setCounter(counter + 1); // setCounter(1 + 1);
+}
+```
+
+### Why Doesn't the Counter Change 3x?
+
+This is because setCounter() will not change the counter data that is in the current Snapshot.
+
+setCounter() will only perform a re-render with the new counter data.
+
+When we call setCounter() 3 times, it doesn't mean React will re-render 3 times; React will wait until the Event Handler is finished, and if there is a State change, then a re-render will be performed.
+
+### State Updates
+
+As previously discussed, updating State multiple times will not change the State data in the current Snapshot, but will only trigger a re-render with the new State data.
+
+But, sometimes, we might indeed need to update the data in the same State multiple times.
+
+And if we do want to update the data in the State with data that has hopefully been updated previously (even if it hasn't been re-rendered yet)...
+
+We can use a lambda as a parameter when calling the function to update the State data.
+
+```js
+function handleClick() {
+  setCounter((c) => c + 1);
+  setCounter((c) => c + 1);
+  setCounter((c) => c + 1);
+  // Still counter = 0
+  console.log(counter);
+}
+```
