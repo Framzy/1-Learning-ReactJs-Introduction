@@ -785,7 +785,7 @@ There are 3 stages in the process of displaying a Component in React.
 
 3. Third, placing the rendered result of the Component into the DOM (Document Object Model).
 
-![alt text](image.png)
+![alt text](image-2.png)
 
 - Triggering a Render
 
