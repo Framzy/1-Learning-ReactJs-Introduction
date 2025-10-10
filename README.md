@@ -869,3 +869,97 @@ function handleClick() {
   console.log(counter);
 }
 ```
+
+## Objects in State
+
+State can store any type of JavaScript data, including Objects.
+
+But we are not advised to mutate the object that is in State.
+
+If we want to change an object in State, it is recommended to create a new object and then update the data in that State with the new object.
+
+```js
+import { useState } from "react";
+import "./Contact.css";
+
+const initialData = {
+  name: "",
+  message: "",
+};
+
+export default function ContactForm() {
+  const [contact, setContact] = useState(initialData);
+
+  function handleNameChange(e) {
+    setContact({ ...contact, name: e.target.value });
+  }
+  function handleMessageChange(e) {
+    setContact({ ...contact, message: e.target.value });
+  }
+}
+```
+
+### Immutable Data
+
+When we create data in State, we must treat the data in State as immutable data (it cannot be changed). This means that data in State is only meant to be read (read-only). If we want to change data in State, we must change it using new data, which means the old data is not modified.
+
+This is a common practice in React, even though in reality, objects in JavaScript are not immutable. This is recommended so that we don't mistakenly mutate the data directly, as we know that mutating data will not trigger a re-render. Fortunately, in JavaScript, we can use Spread Syntax to help copy the attributes of an Object.
+
+## Nested Objects
+
+Sometimes there are cases where we use Nested Objects. Just like before, it is recommended to always create a new object when changing State.
+Sometimes it can be difficult when the Nested Object is too large, therefore it is recommended not to create deeply nested objects.
+
+## Immer Library
+
+> One of the libraries often used when developing applications with React is Immer. Immer is a library used to create an immutable object from the current object. Using Immer is easier than using Spread Syntax, especially for complex and Nested Objects.
+
+[https://github.com/immerjs/immer](https://github.com/immerjs/immer)
+
+![alt text](image.png)
+
+### Use Immer Library
+
+The Immer library can also be easily integrated with React State. We can use the Use-Immer library.
+
+[https://github.com/immerjs/use-immer](https://github.com/immerjs/use-immer)
+
+We just need to replace useState() with useImmer().
+
+And to update an Object in State, we can use a Function as a parameter in its Update Method.
+
+```js
+import "./Contact.css";
+import { useImmer } from "use-immer";
+
+const initialData = {
+  name: "",
+  message: "",
+};
+
+export default function ContactForm() {
+  const [contact, setContact] = useImmer(initialData);
+
+  function handleNameChange(e) {
+    setContact((draft) => {
+      draft.name = e.target.value;
+    });
+  }
+  function handleMessageChange(e) {
+    setContact((draft) => {
+      draft.message = e.target.value;
+    });
+  }
+```
+
+## Arrays in State
+
+- Just like Objects, Arrays in State must also be treated as Immutable data.
+
+- This means for operations like adding, changing, or deleting data in an Array, we must create a new Array to update the State.
+
+- This can be a bit difficult, which is why with the help of a library like Immer, this becomes much easier.
+
+### Update Array in State
+
+![alt text](image-1.png)
