@@ -960,6 +960,104 @@ export default function ContactForm() {
 
 - This can be a bit difficult, which is why with the help of a library like Immer, this becomes much easier.
 
+```js
+const [item, setItem] = useState("");
+const [items, setItems] = useImmer([]);
+
+function handleChange(e) {
+  setItem(e.target.value);
+}
+
+function handleClick(e) {
+  e.preventDefault();
+
+  if (!item) {
+    return;
+  }
+
+  setItems((items) => {
+    items.push(item);
+  });
+
+  setItem("");
+}
+```
+
 ### Update Array in State
 
 ![alt text](image-1.png)
+
+## Sharing State
+
+Sometimes, we want to create State for several Components that always change together, or simply put, Sharing State.
+
+To do this, we must lift the state up from those Components to their Parent Component, and then pass the State down via Props.
+
+For example, in the previous Task Form, we will create 2 Child Components: a Component for the TaskForm, and a Component for the TaskList.
+
+We will share its State from the Task to the TaskForm and TaskList via Props.
+
+```js
+// TaskSharing.jsx (Parent Component) sharing State from Task to TaskForm as setItems and TaskList as items
+import { useImmer } from "use-immer";
+import TaskForm from "./TaskForm";
+import TaskList from "./TaskList";
+
+export default function TaskSharing() {
+  const [items, setItems] = useImmer([]);
+
+  return (
+    <div style={{ backgroundColor: "#3e9ab9ff" }}>
+      <TaskForm setItems={setItems} />
+      <TaskList items={items} />
+    </div>
+  );
+}
+
+// TaskForm.jsx (Child Component)
+import { useState } from "react";
+
+export default function TaskForm({ setItems }) {
+  const [item, setItem] = useState("");
+
+  function handleChange(e) {
+    setItem(e.target.value);
+  }
+
+  function handleClick(e) {
+    e.preventDefault();
+
+    setItems((draft) => {
+      draft.push(item);
+    });
+
+    setItem("");
+  }
+
+  return (
+    <div>
+      <h1>Create Task</h1>
+      <form action="#">
+        <input value={item} onChange={handleChange} />
+        <button onClick={handleClick}>Add</button>
+      </form>
+    </div>
+  );
+}
+
+// TaskList.jsx (Child Component)
+export default function TaskList({ items = [] }) {
+  return (
+    <div>
+      <h1>Task List</h1>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+      <p>From Task Form</p>
+    </div>
+  );
+}
+
+```

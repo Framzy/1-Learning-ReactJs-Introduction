@@ -31,7 +31,7 @@ export default function Task() {
   }
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#67a6a7" }}>
       <h1>Create Task</h1>
       <form action="#">
         <input value={item} onChange={handleChange} />
