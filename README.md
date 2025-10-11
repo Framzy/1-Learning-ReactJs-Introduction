@@ -785,7 +785,7 @@ There are 3 stages in the process of displaying a Component in React.
 
 3. Third, placing the rendered result of the Component into the DOM (Document Object Model).
 
-![alt text](image-2.png)
+![alt text](/img-readme/image-2.png)
 
 - Triggering a Render
 
@@ -916,7 +916,7 @@ Sometimes it can be difficult when the Nested Object is too large, therefore it 
 
 [https://github.com/immerjs/immer](https://github.com/immerjs/immer)
 
-![alt text](image.png)
+![alt text](/img-readme/image.png)
 
 ### Use Immer Library
 
@@ -985,7 +985,7 @@ function handleClick(e) {
 
 ### Update Array in State
 
-![alt text](image-1.png)
+![alt text](/img-readme/image-1.png)
 
 ## Sharing State
 
@@ -1072,4 +1072,73 @@ State itself is not stored inside the Component. State is stored in React, so wh
 
 The way React knows which State is used by which Component is by looking at the Component's position in the UI structure.
 
-![alt text](image-3.png)
+![alt text](/img-readme/image-3.png)
+
+### Component Position
+
+As explained before, React preserves State according to the Component's position.
+
+When a Component's position changes, for example, it disappears from the screen...
+
+The State is automatically removed from React.
+
+For example, we will make a Counter Component that can be removed.
+
+When that Component is later removed from the display, its State will also automatically be gone.
+
+```js
+{
+  show2 && <Counter>;
+  <input type="checkbox" checked={show2} onChange={handleChange} />
+  <label> Show Counter 2</label>
+}
+```
+
+![alt text](/img-readme/image-4.png)
+
+### Same Component in the Same Position
+
+If there is a case where we display the same Component...
+
+...but in the UI structure, it is in the same position...
+
+...then the State will be preserved by React, which means it will not be removed.
+
+This might be confusing, but we must understand this, because React preserves State information based on the Component's Position. If the Component is the same, and its position is the same, then the State will be preserved.
+
+```js
+      {show2 ? <Counter name="aaaa" /> : <Counter name="ffff" />}
+      <input type="checkbox" checked={show2} onChange={handleChange} />
+      <label> Show Counter 2</label>
+```
+
+### Why is the State Still the Same?
+
+This happens because in the UI structure, the Component's position is in the same place.
+
+If the Component's position and the Component's type are the same, React will automatically preserve the State.
+
+Unless its position changes or the Component is different, then React will remove its State.
+
+![alt text](/img-readme/image-5.png)
+
+### Resetting State
+
+Now we know how React preserves State data.
+
+So what if, for example, under certain conditions, we actually want to Reset State, not preserve it?
+
+There are several ways to reset State.
+
+What we have done in the previous material is by removing the Component from the UI display.
+
+When a Component disappears from the UI display, the State will automatically disappear along with it.
+
+#### Replacing with a Different Component
+
+Besides removing a Component, we can also replace a Component with another Component in the same position.
+
+When the same position still exists in the UI structure, but the Component is different, the State will also be automatically reset.
+
+For example, previously we displayed a Counter Component, then we change it to a paragraph element. The State in the Counter Component will automatically be removed.
+![alt text](/img-readme/image-6.png)
