@@ -1061,3 +1061,15 @@ export default function TaskList({ items = [] }) {
 }
 
 ```
+
+## Preserving State
+
+State is isolated between Components. React tracks which State belongs to which Component based on its place in the UI structure.
+
+We can control when we want to preserve State and when we want to reset it.
+
+State itself is not stored inside the Component. State is stored in React, so when we use State in a Component, we are actually using the State that exists in React.
+
+The way React knows which State is used by which Component is by looking at the Component's position in the UI structure.
+
+![alt text](image-3.png)
