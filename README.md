@@ -1141,4 +1141,66 @@ Besides removing a Component, we can also replace a Component with another Compo
 When the same position still exists in the UI structure, but the Component is different, the State will also be automatically reset.
 
 For example, previously we displayed a Counter Component, then we change it to a paragraph element. The State in the Counter Component will automatically be removed.
+
+```js
+// different component
+{
+  {show2 ? <Counter name="aaaa" /> : <p>Gone</p>}
+  <input type="checkbox" checked={show2} onChange={handleChange} />
+  <label> Show Counter 2</label>
+}
+```
+
 ![alt text](/img-readme/image-6.png)
+
+```js
+// different component and position
+return (
+  <div>
+    {show2 ? (
+      <div>
+        <Counter name="aaaa" />
+      </div>
+    ) : (
+      <section>
+        <Counter name="bbbb" />
+      </section>
+    )}
+    <input type="checkbox" checked={show2} onChange={handleChange} />
+    <label> Show Counter 2</label>
+  </div>
+);
+```
+
+![alt text](/img-readme/image-7.png)
+
+```js
+return (
+  <div>
+    {!show2 && <Counter name="aaaa" />}
+    {show2 && <Counter name="bbbb" />}
+    <input type="checkbox" checked={show2} onChange={handleChange} />
+    <label> Show Counter 2</label>
+  </div>
+);
+```
+
+![alt text](/img-readme/image-8.png)
+
+### Resetting State Using a Key (RECOMMENDED)
+
+A common way to reset State is by adding a key to the Component.
+
+When the same Component is displayed in the same position, if its key is different, it will be considered a different Component, and thus, the State will be automatically reset.
+
+This is probably the most recommended way, compared to having to change the Component's position.
+
+```js
+return (
+  <div>
+    {show2 ? <Counter key="1" name="bbbb" /> : <Counter key="2" name="aaaa" />}
+    <input type="checkbox" checked={show2} onChange={handleChange} />
+    <label> Show Counter 2</label>
+  </div>
+);
+```
