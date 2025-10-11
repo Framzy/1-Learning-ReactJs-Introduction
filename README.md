@@ -1204,3 +1204,29 @@ return (
   </div>
 );
 ```
+
+## Hooks State Reducer
+
+Previously, we have discussed a lot about Hooks State using useState().
+
+Besides that, there is another Hooks State feature, which is Reducer, using useReducer().
+
+[https://react.dev/reference/react/useReducer](https://react.dev/reference/react/useReducer)
+
+### Reducer
+
+In cases where we create a Component that has many State update processes, it is sometimes difficult to maintain, because too many Event Handlers have to be created just to change its State data.
+
+In cases like this, we can consolidate all the logic for updating State into a single Function outside the Component, which we call a Reducer.
+
+To get an idea, we will first try to create a Component with a lot of State updates without using a Reducer, then we will change it to use a Reducer.
+
+### Using a Reducer
+
+Now we will focus on NoteApp.jsx.
+
+We can see that there are 3 actions to update notes: add, update, and delete. And all of them are stored in different functions and come from different Event Handlers.
+
+Using a Reducer is slightly different from updating State directly. Instead of telling React what to do by changing the State, with a Reducer, we tell React what the user has done (the action).
+
+The implementation of the action's logic is done in a separate place.
