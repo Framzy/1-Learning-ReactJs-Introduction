@@ -1230,3 +1230,11 @@ We can see that there are 3 actions to update notes: add, update, and delete. An
 Using a Reducer is slightly different from updating State directly. Instead of telling React what to do by changing the State, with a Reducer, we tell React what the user has done (the action).
 
 The implementation of the action's logic is done in a separate place.
+
+### Creating a Reducer Function
+
+A Reducer Function is the code where we store our logic.
+
+A Reducer Function has two parameters: the current State, and an Action object.
+
+The return value of the function is the next State.
