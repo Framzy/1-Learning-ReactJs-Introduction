@@ -1238,3 +1238,89 @@ A Reducer Function is the code where we store our logic.
 A Reducer Function has two parameters: the current State, and an Action object.
 
 The return value of the function is the next State.
+
+```js
+import { useImmerReducer } from "use-immer";
+import { useReducer } from "react";
+
+// immer reducer
+function notesReducer(draft, action) {
+  if (action.type === "ADD_NOTE") {
+    draft.push({
+      id: id++,
+      text: action.text,
+      done: false,
+    });
+  } else if (action.type === "UPDATE_NOTE") {
+    const index = draft.findIndex((note) => note.id === action.id);
+    draft[index].text = action.text;
+    draft[index].done = action.done;
+  } else if (action.type === "DELETE_NOTE") {
+    const index = draft.findIndex((note) => note.id === action.id);
+    draft.splice(index, 1);
+  }
+}
+
+// normal reducer
+function notesReducer(notes, action) {
+  switch (action.type) {
+    case "ADD_NOTE":
+      return [
+        ...notes,
+        {
+          id: id++,
+          text: action.text,
+          done: false,
+        },
+      ];
+    case "UPDATE_NOTE":
+      return notes.map((note) =>
+        note.id === action.id
+          ? { ...note, text: action.text, done: action.done }
+          : note
+      );
+    case "DELETE_NOTE":
+      return notes.filter((note) => note.id !== action.id);
+    default:
+      return notes;
+  }
+}
+
+export default function NoteApp() {
+  // immer reducer
+  const [notes, dispatch] = useImmerReducer(notesReducer, initialNotes);
+  // normal reducer
+  const [notes, dispatch] = useReducer(notesReducer, initialNotes);
+
+  function handleAddNote(text) {
+    dispatch({
+      type: "ADD_NOTE",
+      text,
+    });
+  }
+
+  function handleChangeNote(note) {
+    dispatch({
+      ...note,
+      type: "UPDATE_NOTE",
+    });
+  }
+
+  function handleDeleteNote(note) {
+    dispatch({
+      id: note.id,
+      type: "DELETE_NOTE",
+    });
+  }
+}
+```
+
+### Using Immer
+
+The Use-Immer library also supports Reducers, making it easier because we can edit draft data instead of creating new data from the existing State.
+
+We can use the useImmerReducer() method.
+
+```js
+
+```
