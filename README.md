@@ -1487,3 +1487,119 @@ To use Ref Hooks, we can use the useRef() method.
 [https://react.dev/reference/react/useRef](https://react.dev/reference/react/useRef)
 
 The useRef() function will return an Object that has a current attribute, where the current attribute contains the value held by the Ref.
+
+### Manipulating the DOM with Ref
+
+React will automatically update the DOM when it re-renders, so we don't need to manipulate the DOM manually anymore.
+
+But, sometimes we might need to access the DOM manually, for example to move focus to an element, or scroll to a specific element, and so on.
+
+Unfortunately, there is no way to do this using React, so we need to handle this manually.
+
+One way to do this is by using a Ref to a DOM element.
+
+The way to do it is, on the element, we can add a ref attribute.
+
+```js
+
+ const nameInput = useRef(null);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setName("");
+    setMessage("");
+
+    nameInput.current.focus();
+  }
+
+  <label htmlFor="name">Name</label>
+  <br />
+  <input
+    ref={nameInput}
+    type="text"
+    name="name"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+  />
+  <br />
+```
+
+### Ref for Components
+
+Ref can only be used on DOM elements; we cannot use a ref on a Component.
+
+If we add a Ref to a Component, the current attribute will be null.
+
+We will try to practice this by creating a GuestBookInput Component.
+
+```js
+return (
+  <>
+    <h1>Guest Book</h1>
+    <form action="">
+      <GuestBookForm ref={nameInput} name={name} setName={setName} />
+      <label htmlFor="message">Message</label>
+      <br />
+      <textarea
+        name="message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <br />
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
+    </form>
+  </>
+);
+```
+
+### Accessing a Component's DOM Element
+
+Because a Component cannot be made a Ref, if we want to use a Ref for a Component, we can use Props instead.
+
+We can create a ref Prop that we fill with a Ref.
+
+We can then use this ref Prop on a DOM element inside that Component.
+
+Now let's try to add a Ref into the GuestBookInput Component.
+
+```js
+return (
+  <>
+    <h1>Guest Book</h1>
+    <form action="">
+      <GuestBookForm ref={nameInput} name={name} setName={setName} />
+      <label htmlFor="message">Message</label>
+      <br />
+      <textarea
+        name="message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <br />
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
+    </form>
+  </>
+);
+
+// GuestBookForm make ref as props
+export default function GuestBookForm({ name, setName, ref }) {
+  return (
+    <>
+      <label htmlFor="name">Name</label>
+      <br />
+      <input
+        ref={ref}
+        type="text"
+        name="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <br />
+    </>
+  );
+}
+```

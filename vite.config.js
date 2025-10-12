@@ -16,6 +16,7 @@ export default defineConfig({
         note_context: "note-context.html",
         profile: "profile.html",
         timer: "timer.html",
+        guestbook: "guestbook.html",
       },
     },
   },
