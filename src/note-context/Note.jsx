@@ -1,35 +1,51 @@
 import { useState } from "react";
-
+import { useContext } from "react";
+import { NoteDispatchContext } from "./NoteContext";
 import "./Note.css";
 
-export default function Note({ note, onChange, onDelete }) {
-  const [isEditing, setisEditing] = useState(false);
-  let component;
+export default function Note({ note }) {
+  const dispatch = useContext(NoteDispatchContext);
+  const [isEditing, setIsEditing] = useState(false);
 
   function handleChangeText(e) {
-    const newNote = { ...note, text: e.target.value };
-    onChange(newNote);
+    dispatch({
+      ...note,
+      type: "CHANGE_NOTE",
+      text: e.target.value,
+    });
   }
+
+  function handleChangeDone(e) {
+    dispatch({
+      ...note,
+      type: "CHANGE_NOTE",
+      done: e.target.value,
+    });
+  }
+
+  function handleDelete() {
+    dispatch({
+      type: "DELETE_NOTE",
+      id: note.id,
+    });
+  }
+
+  let component;
 
   if (isEditing) {
     component = (
       <>
         <input value={note.text} onChange={handleChangeText} />
-        <button onClick={() => setisEditing(false)}>Save</button>
+        <button onClick={() => setIsEditing(false)}>Save</button>
       </>
     );
   } else {
     component = (
       <>
         <span>{note.text}</span>
-        <button onClick={() => setisEditing(true)}>Edit</button>
+        <button onClick={() => setIsEditing(true)}>Edit</button>
       </>
     );
-  }
-
-  function handleChangeDone(e) {
-    const newNote = { ...note, done: e.target.checked };
-    onChange(newNote);
   }
 
   return (
@@ -39,13 +55,7 @@ export default function Note({ note, onChange, onDelete }) {
         {component}
       </p>
 
-      <button
-        onClick={() => {
-          onDelete(note);
-        }}
-      >
-        Delete
-      </button>
+      <button onClick={handleDelete}>Delete</button>
     </label>
   );
 }
