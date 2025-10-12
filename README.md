@@ -1423,3 +1423,67 @@ Context might be easier to use compared to sending all State data via Props.
 But don't overuse Context for simple things.
 
 Use Context if it's really necessary. If it's still simple, you can use State and Props first. If it has become too complex and involves passing Props too deeply, then change to Context.
+
+### Moving the Event Handler
+
+Because the Dispatch method is in the Context, we no longer need to send the Event Handler from the Parent Component to the Child Component via Props.
+
+We can move it directly to the Child Component, because the Child Component can access the Dispatch Function.
+
+```js
+// Note.jsx
+const dispatch = useContext(NoteDispatchContext);
+const [isEditing, setIsEditing] = useState(false);
+
+function handleChangeText(e) {
+  dispatch({
+    ...note,
+    type: "CHANGE_NOTE",
+    text: e.target.value,
+  });
+}
+
+function handleChangeDone(e) {
+  dispatch({
+    ...note,
+    type: "CHANGE_NOTE",
+    done: e.target.value,
+  });
+}
+
+function handleDelete() {
+  dispatch({
+    type: "DELETE_NOTE",
+    id: note.id,
+  });
+}
+
+// Note App
+export default function NoteApp() {
+  const [notes, dispatch] = useImmerReducer(notesReducer, initialNotes);
+
+  return (
+    <div>
+      <NoteContext.Provider value={notes}>
+        <NoteDispatchContext.Provider value={dispatch}>
+          <h1>Note APP</h1>
+          <NoteForm />
+          <NoteList />
+        </NoteDispatchContext.Provider>
+      </NoteContext.Provider>
+    </div>
+  );
+}
+```
+
+## Ref Hooks
+
+Another Hooks feature besides State and Context is Ref Hooks.
+
+When we want a Component to remember information, but we don't want to trigger a re-render, we can use a Ref.
+
+To use Ref Hooks, we can use the useRef() method.
+
+[https://react.dev/reference/react/useRef](https://react.dev/reference/react/useRef)
+
+The useRef() function will return an Object that has a current attribute, where the current attribute contains the value held by the Ref.

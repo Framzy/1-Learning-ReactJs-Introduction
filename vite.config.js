@@ -15,6 +15,7 @@ export default defineConfig({
         note: "note.html",
         note_context: "note-context.html",
         profile: "profile.html",
+        timer: "timer.html",
       },
     },
   },
