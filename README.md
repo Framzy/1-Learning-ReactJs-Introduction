@@ -1324,3 +1324,24 @@ We can use the useImmerReducer() method.
 ```js
 
 ```
+
+## Context Hooks
+
+Besides the State Hooks that we have discussed previously using useState() and useReduce()
+
+There are still other Hooks, one of which is the Context Hooks, using useContext()
+
+[https://react.dev/reference/react/useContext](https://react.dev/reference/react/useContext)
+
+### Context
+
+Usually, to send information from a parent Component to a child Component, we use Props.
+
+But sending information through many Components might make it too difficult for us to maintain the Props.
+
+Or, for example, if we have one piece of information that is used by many Components, then sending it to all Components will also be too difficult.
+
+Context allows a parent Component to make information available to any Component underneath it, no matter how deep that Component is.
+
+Many also say that Context is a Global State.
+![alt text](/img-readme/image-9.png)
