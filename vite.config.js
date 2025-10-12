@@ -13,6 +13,7 @@ export default defineConfig({
         task: "task.html",
         counter: "counter.html",
         note: "note.html",
+        note_context: "note-context.html",
         profile: "profile.html",
       },
     },

@@ -1345,3 +1345,81 @@ Context allows a parent Component to make information available to any Component
 
 Many also say that Context is a Global State.
 ![alt text](/img-readme/image-9.png)
+
+### Creating Context
+
+To create a Context, we can use the createContext() function.
+
+[https://react.dev/reference/react/createContext](https://react.dev/reference/react/createContext)
+Next, after creating the Context, to use that Context, we can use useContext().
+
+[https://react.dev/reference/react/useContext](https://react.dev/reference/react/useContext)
+
+To change the data in the Context, we use the Provider that is in the Context. Automatically, all Components below it will get the value according to what we change in the Context Provider.
+
+[https://react.dev/reference/react/createContext#provider](https://react.dev/reference/react/createContext#provider)
+
+```js
+// create context
+import { createContext } from "react";
+
+export const ProfileContext = createContext("");
+
+// use context
+import { useContext } from "react";
+import { ProfileContext } from "./ProfileContext";
+
+export default function Profile() {
+  const profile = useContext(ProfileContext);
+  return (
+    <div>
+      <h2>Profile</h2>
+      <p>Nama {profile.name}</p>
+    </div>
+  );
+}
+
+// context provider
+import { ProfileContext } from "./ProfileContext";
+import Profile from "./Profile";
+import ProfileAddress from "./ProfileAddress";
+import ProfileForm from "./ProfileForm";
+import { useState } from "react";
+
+export default function ProfileApp() {
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  return (
+    <ProfileContext.Provider value={{ name, address }}>
+      <h1>Profile App</h1>
+      <ProfileForm
+        name={name}
+        setName={setName}
+        address={address}
+        setAddress={setAddress}
+      />
+      <Profile />
+      <ProfileAddress />
+    </ProfileContext.Provider>
+  );
+}
+
+```
+
+### Context and State
+
+To change a Context, we must use a Provider.
+
+This is because a Context can only be accessed by Components below it, not by Components above it or at the same level.
+
+Furthermore, Components below it can only read data from the Context; they cannot change the data in the Context.
+
+Therefore, if we want to make the data in a Context easily changeable, we can use the help of State.
+
+### Before Using Context
+
+Context might be easier to use compared to sending all State data via Props.
+
+But don't overuse Context for simple things.
+
+Use Context if it's really necessary. If it's still simple, you can use State and Props first. If it has become too complex and involves passing Props too deeply, then change to Context.
