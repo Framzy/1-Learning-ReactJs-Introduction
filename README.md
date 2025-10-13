@@ -1603,3 +1603,33 @@ export default function GuestBookForm({ name, setName, ref }) {
   );
 }
 ```
+
+## Effect
+
+An Effect is a function that runs after the Component has been rendered.
+
+### Effect Hooks
+
+The next Hooks we will discuss are Effect Hooks.
+
+Some Components might need to communicate with External Systems, for example, communicating with Non-React Components, communicating with a Server, and so on.
+
+Effect Hooks allow us to create code that is executed after the rendering process so that we can communicate with systems outside of React.
+
+Effects happen after the rendering process is complete.
+
+We can use useEffect() to create an Effect.
+
+[https://react.dev/reference/react/useEffect](https://react.dev/reference/react/useEffect)
+
+#### Why Aren't Event Handlers Enough?
+
+Usually, we know that a Component must be Pure and not have side effects.
+
+For code that has side effects, we typically use Event Handlers.
+
+However, sometimes we need to create a Component that has side effects when it is rendered.
+
+For example, when a Component is rendered, we might want to fetch data from a Server, which can cause the Component's content to change (a side effect) according to the Server's response.
+
+This is where Effect Hooks are needed.
