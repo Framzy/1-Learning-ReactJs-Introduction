@@ -1691,3 +1691,62 @@ export default function ProductList() {
   );
 }
 ```
+
+### Effect Clean Up
+
+In some cases, we might need to do something after the Effect has finished executing.
+
+For example, similar to how a Try-Catch block has a Finally block.
+
+In an Effect, there is a process called Clean Up. The Clean Up will be executed after the Effect process is finished.
+
+The method is quite simple, we just need to return a function from within the Effect.
+
+The Clean Up will be executed before the next Effect runs, or when the Component is unmounted.
+
+### Effect Dependencies
+
+By default, an Effect is executed after every render process.
+
+This means if the render process is done multiple times, the Effect will also be executed multiple times after the render process is complete.
+
+This requires us to perform manual checks, like in the previous material, if we don't want the Effect code to run multiple times.
+
+useEffect() has a second parameter, which is Dependencies.
+
+We can fill the Dependencies with an Array of State, which means the Effect will only be executed if that State changes; if it doesn't change, the Effect will not be executed.
+
+This is probably easier than manually using if-else.
+
+```js
+import { useState, useEffect } from "react";
+import Product from "./Product";
+
+export default function ProductList() {
+  const [products, setProducts] = useState([]);
+  const [load, setLoad] = useState(false);
+
+  function handleClick() {
+    setLoad(true);
+  }
+
+  useEffect(() => {
+    console.log("Call use effect");
+    if (load) {
+      fetch("/products.json")
+        .then((response) => response.json())
+        .then((data) => setProducts(data));
+    }
+  }, [load]);
+
+  return (
+    <>
+      <h1>Product List</h1>
+      <button onClick={handleClick}>Load</button>
+      {products.map((product) => (
+        <Product key={product.id} product={product} />
+      ))}
+    </>
+  );
+}
+```
