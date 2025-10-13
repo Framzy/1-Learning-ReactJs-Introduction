@@ -1867,3 +1867,13 @@ export default function NoteList() {
   );
 }
 ```
+
+## Custom Hooks
+
+By default, React already has many Hooks that we can use to make it easier to build applications with React.
+
+However, we can also create Hooks manually if we want.
+
+Creating Hooks is usually done using a function with the prefix “use”.
+
+For example, we will create a Hook to detect whether the status is Online or Offline.
