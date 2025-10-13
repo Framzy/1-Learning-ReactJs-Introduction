@@ -1825,3 +1825,45 @@ This is part of Performance Hooks, where we can use the useMemo(callback, [depen
 [https://react.dev/reference/react/useMemo](https://react.dev/reference/react/useMemo)
 
 This is suitable for cases where we need to call heavy code and the result is always the same. Instead of calling it repeatedly on every render, it's better to do it just once, and on subsequent calls, we just return the first result.
+
+### Example of Using Memo
+
+For example, in a Notes application, we want to add a process to search for a Note.
+
+If a user performs a search with the same value, instead of performing the search again, we can just return the same result as before.
+
+```js
+import { useContext, useState, useRef, useMemo } from "react";
+import Note from "./Note.jsx";
+import { NoteContext } from "./NoteContext";
+
+export default function NoteList() {
+  const notes = useContext(NoteContext);
+  const [search, setSearch] = useState("");
+  const searchInput = useRef(null);
+
+  const filteredNotes = useMemo(() => {
+    console.log("Filtering Node");
+    return notes.filter((note) => note.text.includes(search));
+  }, [notes, search]);
+
+  function handleSearch() {
+    console.log("Search:", searchInput.current.value);
+    setSearch(searchInput.current.value);
+  }
+
+  return (
+    <div>
+      <input type="text" ref={searchInput} placeholder="Search..." />
+      <button onClick={handleSearch}>Search</button>
+      <ul>
+        {filteredNotes.map((note) => (
+          <li key={note.id}>
+            <Note note={note} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
