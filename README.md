@@ -1633,3 +1633,61 @@ However, sometimes we need to create a Component that has side effects when it i
 For example, when a Component is rendered, we might want to fetch data from a Server, which can cause the Component's content to change (a side effect) according to the Server's response.
 
 This is where Effect Hooks are needed.
+
+### Infinite Loop
+
+By default, an Effect will be executed after the render process.
+
+Therefore, we need to be careful, because if we update State inside an Effect, it can cause an infinite loop where the re-rendering process occurs continuously without stopping.
+
+```js
+// This use effect will infinitely call itself because it is not a clean up function
+import { useState, useRef, useEffect } from "react";
+import Product from "./Product";
+
+export default function ProductList() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("/products.json")
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+  });
+
+  return (
+    <>
+      <h1>Product List</h1>
+      {products.map((product) => {
+        <Product key={product} product={product} />;
+      })}
+    </>
+  );
+}
+
+// Product make ref as props and use clean up function to prevent infinite loop
+import { useState, useRef, useEffect } from "react";
+import Product from "./Product";
+
+export default function ProductList() {
+  const [products, setProducts] = useState([]);
+  const loaded = useRef(false);
+
+  useEffect(() => {
+    if (loaded.current === false) {
+      fetch("/products.json")
+        .then((response) => response.json())
+        .then((data) => setProducts(data))
+        .then(() => (loaded.current = true));
+    }
+  });
+
+  return (
+    <>
+      <h1>Product List</h1>
+      {products.map((product) => (
+        <Product key={product} product={product} />
+      ))}
+    </>
+  );
+}
+```
