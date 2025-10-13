@@ -1815,3 +1815,13 @@ If there is no interaction with an External System, then it's best not to use an
 > ### - Don't Use Effects to Change Data on the Server
 >
 > If there is logic in an Effect that changes data on the Server, you need to be careful, because the Effect could be executed multiple times due to the re-rendering process. Because of this, it is not recommended to use an Effect to change data on the Server. Use an Event Handler if you want to change data on the Server, so it is clear when the change occurs. Using an Effect can cause data changes on the Server to happen multiple times due to Component re-renders.
+
+## Memoization
+
+Memoization is an optimization technique to speed up computer programs by temporarily storing the results of expensive calculations so that they don't need to be recalculated.
+
+This is part of Performance Hooks, where we can use the useMemo(callback, [dependencies]) function.
+
+[https://react.dev/reference/react/useMemo](https://react.dev/reference/react/useMemo)
+
+This is suitable for cases where we need to call heavy code and the result is always the same. Instead of calling it repeatedly on every render, it's better to do it just once, and on subsequent calls, we just return the first result.

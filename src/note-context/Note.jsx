@@ -19,7 +19,7 @@ export default function Note({ note }) {
     dispatch({
       ...note,
       type: "CHANGE_NOTE",
-      done: e.target.value,
+      done: e.target.checked,
     });
   }
 
