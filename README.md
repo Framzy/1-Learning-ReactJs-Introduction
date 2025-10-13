@@ -1762,3 +1762,28 @@ useEffect(() => {
   console.log("Call use effect with empty array []");
 }, []);
 ```
+
+### Async Code in Effects
+
+Sometimes, when connecting to an External System, like calling an API, we will usually write Async Await code.
+
+Unfortunately, Effects do not directly support Async Functions. Therefore, if we can use a Promise directly, we can just use the Promise without using Async Await.
+
+However, if we do want to use Async Await, then we must create a function that is later called inside useEffect().
+
+For example, we will try to change the previous code into Async Await code when fetching Products data.
+
+```js
+useEffect(() => {
+  async function fetchProducts() {
+    const response = await fetch("/products.json");
+    const data = await response.json();
+    setProducts(data);
+  }
+
+  if (load) {
+    fetchProducts();
+  }
+  console.log("Call use effect");
+}, [load]);
+```

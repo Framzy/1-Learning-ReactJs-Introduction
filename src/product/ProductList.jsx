@@ -16,12 +16,16 @@ export default function ProductList() {
   }, []);
 
   useEffect(() => {
-    console.log("Call use effect");
-    if (load) {
-      fetch("/products.json")
-        .then((response) => response.json())
-        .then((data) => setProducts(data));
+    async function fetchProducts() {
+      const response = await fetch("/products.json");
+      const data = await response.json();
+      setProducts(data);
     }
+
+    if (load) {
+      fetchProducts();
+    }
+    console.log("Call use effect");
   }, [load]);
 
   return (
