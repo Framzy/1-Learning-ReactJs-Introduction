@@ -12,6 +12,10 @@ export default function ProductList() {
   }
 
   useEffect(() => {
+    console.log("Call use effect with empty array []");
+  }, []);
+
+  useEffect(() => {
     console.log("Call use effect");
     if (load) {
       fetch("/products.json")

@@ -1750,3 +1750,15 @@ export default function ProductList() {
   );
 }
 ```
+
+### Empty Dependencies
+
+Sometimes, we might only want to call an Effect just once after the Component is first rendered. After that, we don't want to call the Effect again, even if a re-render occurs.
+
+In a case like that, we can use an empty array as the dependencies. Then, the Effect will only be called once after the first render, and it will not be called again afterward.
+
+```js
+useEffect(() => {
+  console.log("Call use effect with empty array []");
+}, []);
+```
