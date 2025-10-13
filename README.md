@@ -1877,3 +1877,44 @@ However, we can also create Hooks manually if we want.
 Creating Hooks is usually done using a function with the prefix “use”.
 
 For example, we will create a Hook to detect whether the status is Online or Offline.
+
+```js
+// Create Online Hook
+import { useEffect, useState } from "react";
+
+export function useOnline() {
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    function handleOnline() {
+      setIsOnline(true);
+    }
+
+    function handleOffline() {
+      setIsOnline(false);
+    }
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  return isOnline;
+}
+
+// Use Online Hook
+import { useOnline } from "./OnlineHook";
+
+export default function Online() {
+  const isOnline = useOnline();
+  return (
+    <div>
+      <h1>{isOnline ? "Online" : "Offline"}</h1>
+    </div>
+  );
+}
+```
