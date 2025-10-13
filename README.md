@@ -1786,4 +1786,32 @@ useEffect(() => {
   }
   console.log("Call use effect");
 }, [load]);
+
+// Or
+async function fetchProducts() {
+  const response = await fetch("/products.json");
+  const data = await response.json();
+  setProducts(data);
+}
+
+useEffect(() => {
+  if (load) {
+    fetchProducts();
+  }
+  console.log("Call use effect");
+}, [load]);
 ```
+
+## Don't Use Effects
+
+Effect Hooks are an escape hatch from the usual way of doing things in React. Effects let you step "outside" of React and allow your Components to interact with External Systems like Non-React Components, the Network, and so on.
+
+If there is no interaction with an External System, then it's best not to use an Effect. Minimizing the use of Effects will make your code easy to read, fast to execute, and have fewer errors.
+
+> ### - Don't Use Effects for Application Initialization
+>
+> Sometimes, some processes are done at the beginning before the page is displayed. In this case, just use plain JavaScript code outside of React. Don't use an Effect to perform application initialization. This is because an Effect is executed after the Render (after it is displayed), and will be re-executed if a re-render occurs (which can happen multiple times).
+>
+> ### - Don't Use Effects to Change Data on the Server
+>
+> If there is logic in an Effect that changes data on the Server, you need to be careful, because the Effect could be executed multiple times due to the re-rendering process. Because of this, it is not recommended to use an Effect to change data on the Server. Use an Event Handler if you want to change data on the Server, so it is clear when the change occurs. Using an Effect can cause data changes on the Server to happen multiple times due to Component re-renders.
